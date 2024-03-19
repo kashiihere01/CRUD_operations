@@ -1,12 +1,54 @@
+<?php 
+
+$conn= mysqli_connect("localhost" , "root" ,"","ticer" );
+if(!$conn){
+  echo "you are not connected with Data base";
+}
+
+
+
+if(isset($_POST["add_user"])){
+  $name =$_POST["name"];
+  $password =$_POST["password"];
+
+  $insert = "INSERT INTO students(name, passward) VALUES ('$name' , '$password')";  
+  $result = mysqli_query($conn , $insert);
+  if(!$result){
+    echo "Sorry, Data is not inserted";
+  }
+  
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<p class="social-text">Or Sign in with social platforms</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Sign in & Sign up Form</title>
+  </head>
+  <body>
+    <div class="container5">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form class="sign-in-form" method="post" >
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Username" name="name"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" name="password"/>
+            </div>
+            <input type="submit" value="Login" class="btn solid" name="add_user" />
+<!-- login end here -->
+            <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
                 <i class="fab fa-facebook-f"></i>
