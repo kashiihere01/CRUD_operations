@@ -12,7 +12,8 @@ if(isset($_POST["add_user"])){
   $password =$_POST["password"];
   $city=$_POST["city"];
   $email =$_POST["email"];
-  $insert = " INSERT INTO user_data(name, password , email, city) VALUES ('$name' , '$password' , '$email','$city')";  
+  $qualification =$_POST["qualifcation"];
+  $insert = " INSERT INTO user_data(name, password , email, city , qualification) VALUES ('$name' , '$password' , '$email','$city', '$qualification')";  
   $result = mysqli_query($conn , $insert);
   if(!$result){
     echo "Sorry, Data is not inserted";
@@ -54,6 +55,10 @@ if(isset($_POST["add_user"])){
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Password" name="password"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="text" placeholder="Qualification" name="qualification"/>
             </div>
             <input type="submit" value="Login" class="btn solid" name="add_user" />
 <!-- login end here -->
