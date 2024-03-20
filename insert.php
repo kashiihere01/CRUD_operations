@@ -1,6 +1,6 @@
 <?php 
 
-$conn= mysqli_connect("localhost" , "root" ,"","ticer" );
+$conn= mysqli_connect("localhost" , "root" ,"","signup_information" );
 if(!$conn){
   echo "you are not connected with Data base";
 }
@@ -10,8 +10,9 @@ if(!$conn){
 if(isset($_POST["add_user"])){
   $name =$_POST["name"];
   $password =$_POST["password"];
-
-  $insert = "INSERT INTO students(name, passward) VALUES ('$name' , '$password')";  
+  $city=$_POST["city"];
+  $email =$_POST["email"];
+  $insert = " INSERT INTO user_data(name, password , email, city) VALUES ('$name' , '$password' , '$email','$city')";  
   $result = mysqli_query($conn , $insert);
   if(!$result){
     echo "Sorry, Data is not inserted";
@@ -43,11 +44,25 @@ if(isset($_POST["add_user"])){
               <input type="text" placeholder="Username" name="name"/>
             </div>
             <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="city" name="city"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="email" placeholder="email" name="email"/>
+            </div>
+            <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Password" name="password"/>
             </div>
             <input type="submit" value="Login" class="btn solid" name="add_user" />
 <!-- login end here -->
+
+
+            
+            <!-- ?>
+
+
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -68,17 +83,21 @@ if(isset($_POST["add_user"])){
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Username" name="username"/>
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input type="email" placeholder="Email" name="email"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="text" placeholder="Enter you city" name="city"/>
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Password" name="passward"/>
             </div>
-            <input type="submit" class="btn" value="Sign up" />
+            <input type="submit" class="btn" value="Sign up" name="submit" />
             <p class="social-text">Or Sign up with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -126,7 +145,7 @@ if(isset($_POST["add_user"])){
           <img src="img/register.svg" class="image" alt="" />
         </div>
       </div>
-    </div>
+    </div> -->
 
     <script src="app.js"></script>
   </body>
