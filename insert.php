@@ -1,157 +1,159 @@
-<?php 
+<?php
+ include("config.php");
+ 
 
-$conn= mysqli_connect("localhost" , "root" ,"","signup_information" );
-if(!$conn){
-  echo "you are not connected with Data base";
-}
+if (isset($_POST['submit'])) {
+
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+    $fname = $_POST['fname'];
+    $cnic = $_POST['cnic'];
+    $mobile = $_POST['mobile'];
+    $gender = $_POST['gender'];
+
+    // insert into the table
+    $sql = "INSERT INTO students (`name`, `father_name`, `cnic`, `mobile`,`gender`) VALUES('$name', '$fname', '$cnic', '$mobile','$gender')";
+
+    $result = mysqli_query($db_con, $sql);
+    if ($result) {
+        echo "Data inserted successfully";
+ 
+        }
+    } else {
+        echo "Data is not inseted";
+    }
 
 
 
-if(isset($_POST["add_user"])){
-  $name =$_POST["name"];
-  $password =$_POST["password"];
-  $city=$_POST["city"];
-  $email =$_POST["email"];
-  $qualification =$_POST["qualifcation"];
-  $insert = " INSERT INTO user_data(name, password , email, city , qualification) VALUES ('$name' , '$password' , '$email','$city', '$qualification')";  
-  $result = mysqli_query($conn , $insert);
-  if(!$result){
-    echo "Sorry, Data is not inserted";
-  }
-  
-}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/64d58efce2.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="style.css" />
-    <title>Sign in & Sign up Form</title>
-  </head>
-  <body>
-    <div class="container5">
-      <div class="forms-container">
-        <div class="signin-signup">
-          <form class="sign-in-form" method="post" >
-            <h2 class="title">Sign in</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" name="name"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="city" name="city"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="email" placeholder="email" name="email"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" name="password"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="text" placeholder="Qualification" name="qualification"/>
-            </div>
-            <input type="submit" value="Login" class="btn solid" name="add_user" />
-<!-- login end here -->
 
+<head>
+    <title>Insert Query</title>
+    <!-- bootstrp links -->
+    <link rel="stylesheet" href="./Bootstrap/css/bootstrap.min.css">
+    <script src="./Bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container w-50 shadow mx-auto mt-3 p-3">
+
+        <h2 class="text-center text-white bg-danger p-2 mb-3">Registration Form</h2>
+
+        <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
+
+            <label class="form-label">Name</label>
+
+            <input type="text" class="form-control shadow-none border border-danger mb-3" name="name" placeholder="First Name" />
+
+            <label class="form-label">Father Name</label>
+
+            <input type="text" class="form-control shadow-none border border-danger mb-3" name="fname" placeholder="Father name" />
+
+            <label class="form-label">Cnic</label>
+
+<input type="number" class="form-control shadow-none border border-danger mb-3" name="cnic" placeholder="XXXX-XXXXXXX-X" />
+
+<label class="form-label">Mobile Number</label>
+
+<input type="number" class="form-control shadow-none border border-danger mb-3" name="mobile" placeholder="XXXX-XXXXXXX" />
+
+
+            <label class="form-label d-block">Gender :</label>
+            <div class="mb-3">
+                Male: <input type="radio" class="form-check-input me-3" name="gender" value="Male" />
+                Female: <input type="radio" class="form-check-input" name="gender" value="Female" />
+            </div>
 
             
-            <!-- ?>
+            </div>
+
+            <div class="w-50 mx-auto">
+                <input type="submit" class="btn btn-danger w-100" name="submit" value="Submit" />
+            </div>
+        </form>
+    </div>
 
 
-            <p class="social-text">Or Sign in with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-          </form>
-          <form action="#" class="sign-up-form">
-            <h2 class="title">Sign up</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" name="username"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" name="email"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="text" placeholder="Enter you city" name="city"/>
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" name="passward"/>
-            </div>
-            <input type="submit" class="btn" value="Sign up" name="submit" />
-            <p class="social-text">Or Sign up with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-          </form>
+
+    <div class="container mt-5">
+        <div class="mb-3 text-end">
+            <a href="insert.php" class="btn btn-danger">+ Add Student</a>
         </div>
-      </div>
+        <h2 class="text-center text-white bg-danger p-2 mb-3">Show Data</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Father name</th>
+                    <th scope="col">CNIC</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
 
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>New here ?</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
-            </p>
-            <button class="btn transparent" id="sign-up-btn">
-              Sign up
-            </button>
-          </div>
-          <img src="img/log.svg" class="image" alt="" />
-        </div>
-        <div class="panel right-panel">
-          <div class="content">
-            <h3>One of us ?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
-            </p>
-            <button class="btn transparent" id="sign-in-btn" >
-              Sign in
-            </button>
-          </div>
-          <img src="img/register.svg" class="image" alt="" />
-        </div>
-      </div>
-    </div> -->
+                </tr>
+            </thead>
+            <tbody>
 
-    <script src="app.js"></script>
-  </body>
+
+                <?php
+                // database connection
+              include("config.php");
+
+                $sql = "SELECT * FROM `students`  ";
+                $result = mysqli_query($db_con , $sql);
+
+              if(mysqli_num_rows($result) > 0){
+
+                while($row = mysqli_fetch_assoc($result)){
+
+                $id = $row['id'];
+                $name = $row['name'];
+                $fname= $row['father_name'];
+                $cnic= $row['cnic'];
+                $mobile = $row['mobile'];
+                $gender = $row['gender'];
+                
+                
+
+              ?>
+
+                <tr>
+                    <th ><?php echo $id;  ?></th>
+                    <td><?php echo $name;  ?></td>
+                    <td><?php echo $fname;  ?></td>
+                    <td><?php echo $cnic;  ?></td>
+                    <td><?php echo $mobile;  ?></td>
+                    <td><?php echo $gender;  ?></td>
+                    <td><span class="badge badge-primary bg-primary">Activated</span></td>
+
+     <td><a href="edit.php?id=<?=$id?>" class="btn btn-warning btn-sm">Edit</a>
+                          |  
+                    <a href="delete.php?id=<?=$id?>" class="btn btn-danger btn-sm">Delete</a></td>
+                </tr>
+ 
+         <?php
+                }
+              }
+            ?>
+
+             
+
+           
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+
+
+
+
 </html>
